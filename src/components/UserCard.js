@@ -1,6 +1,7 @@
 import React from "react";
+import Loader from "./Loader";
 
-const UserCard = ({email,name, sendDataToParent }) => {
+const UserCard = ({ email, name, sendDataToParent, loader }) => {
   const { first, last, title } = name;
   let fullName = `${title} ${first} ${last}`;
   return (
@@ -8,8 +9,8 @@ const UserCard = ({email,name, sendDataToParent }) => {
       <div className="card-body">
         <div className="text-end">
           <button
-          type="button"
-          className="btn btn-primary"
+            type="button"
+            className="btn btn-primary"
             onClick={() => {
               sendDataToParent(true);
             }}
@@ -17,8 +18,14 @@ const UserCard = ({email,name, sendDataToParent }) => {
             Refresh
           </button>
         </div>
-        <h1>{fullName}</h1>
-        <p className="align-left">Email: {email}</p>
+        {loader ? (
+          <Loader />
+        ) : (
+          <div>
+            <h1>{fullName}</h1>
+            <p className="align-left">Email: {email}</p>
+          </div>
+        )}
       </div>
     </div>
   );
